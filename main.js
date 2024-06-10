@@ -20,3 +20,29 @@ const firebaseConfig = {
   messagingSenderId: "630693962922",
   appId: "1:630693962922:web:a9447f760b858bcf781cd3"
 };
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export async function ambilDaftarSiswa() {
+  const refDokumen = collection(db, "siswa");
+  const kueri = query(refDokumen, orderBy("nama"));
+  const cuplikanKueri = await getDocs(kueri);
+
+  let hasil = [];
+  cuplikanKueri.forEach((dok) => {
+    hasil.push({
+      id: dok.id,
+      nama: dok.data().nama,
+      tanggal: dok.data().tanggal,
+      nis: dok.data().nis,
+      alamat: dok.data().alamat,
+      noTlpn: dok.data().noTlpn,
+     kelas: dok.data().kelas,
+     keterangan: dok.data().keterangan,
+    });
+  });
+  
+    return hasil;
+}
+  
