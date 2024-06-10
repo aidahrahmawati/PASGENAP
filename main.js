@@ -46,3 +46,46 @@ export async function ambilAbsensiSiswa() {
     return hasil;
 }
   
+  export function formatAngka(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+export async function tambahAbsensiSiswa(nama, tanggal, nis, alamat, noTlpn, kelas, keterangan) {
+  try {
+    const dokRef = await addDoc(collection(db, 'absensiSiswa'), {
+      nama: nama,
+      tanggal:tanggal,
+      nis: nis,
+      alamat: alamat,
+      noTlpn: noTlpn,
+      kelas: kelas,
+      keterangan: keterangan
+    });
+    console.log('Berhasil menambah absensiSiswa ' + dokRef.id);
+  } catch (e) {
+    console.log('Gagal menambah absensiSiswa ' + e);
+  }
+}
+
+export async function hapusAbsensiSiswa(docId) {
+  await deleteDoc(doc(db, "absensiSiswa", docId));
+}  
+
+export async function ubahAbsensiSiswa(docId, nama, tanggal, nis, alamat, noTlpn, kelas, keterangan) {
+  await updateDoc(doc(db, "absensiSiswa", docId), {
+    nama: nama,
+    tanggal: tanggal,
+    nis: nis,
+    alamat: alamat,
+    noTlpn: noTlpn,
+    kelas: kelas,
+    keterangan: keterangan
+  });
+}
+
+export async function ambilAbsensiSiswa(docId) {
+  const docRef = await doc(db, "absensiSiswa", docId);
+  const docSnap = await getDoc(docRef);
+
+  return await docSnap.data();
+}
