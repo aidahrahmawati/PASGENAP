@@ -10,7 +10,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 </head>
-<h1>Absensi-siswa</h1>
+<h1>Absensi siswa</h1>
 
 <table class="table" id="daftar-siswa">
   <thead>
@@ -29,8 +29,54 @@
   </tbody>
 </table>
 
-<body>
+<img src="loader.gif" style="width: 2em; display: block" id="loader">
 
+<a href="form-absensi.html">Tambah absensi siswa</a>
+
+<script type="module">
+  import { ambilAbsensiSiswa, formatAngka, hapusAbsensiSiswa } from './main.js';
+
+  $(document).ready(async function() {
+    let elemenAbsensiSiswa= $("#absensi-siswa > tbody");
+    let absensiSiswa = await ambilAbsensiSiswa();
+    let nomor = 1;
+
+    absensiSiswa.forEach((data) => {
+      elemenDaftar.append(
+        '<tr>' +
+        '<th>' + nomor + '</th>' +
+        '<td>' + data.nama + '</td>' +
+        '<td>' + data.tanggal + '</td>' +
+        '<th>' + data.nis + '</th>' +
+        '<td>' + data.alamat + '</td>' +
+        '<td>' + data.noTlpn + '</td>' +
+        '<td>' + data.kelas + '</td>' +
+        '<td>' + data.keterangan + '</td>' + '<td class="stack-up">' +
+        ' <a href="#" class="me-2 link-ubah"  data="' +
+        data.id +
+        '">ubah</a> ' +
+        ' <button class="btn btn-danger tombol-hapus" data="' +
+        data.id +
+        '">Hapus</button>' + '</td>' +
+        '</tr>'
+      );
+      nomor = nomor + 1;
+    });
+
+    $('#loader').hide();
+
+    $('.tombol-hapus').click(async function() {
+      $(this).attr('disabled', 'disabled');
+      $('#' + $(this).attr('data')).show();
+      await hapusAbsensiSiswa($(this).attr('data'));
+      location.reload();
+    })
+    $('.link-ubah').click(async function() {
+      window.location.replace('ubah-absensi.html?docId=' + $(this).attr('data'));
+    })
+
+  });
+</script>
 </body>
 
 </html>
