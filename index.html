@@ -12,7 +12,7 @@
 </head>
 <h1>Absensi siswa</h1>
 
-<table class="table" id="absensi-siswa">
+<table class="table" id="siswa">
   <thead>
     <tr>
       <th scope="col">no</th>
@@ -31,13 +31,13 @@
 
 <img src="loader.gif" style="width: 2em; display: block" id="loader">
 
-<a href="from-absensi.html">Tambah absensi siswa</a>
+<a href="form-absensi.html">Tambah absensi siswa</a>
 
 <script type="module">
   import { ambilAbsensiSiswa, formatAngka, hapusAbsensiSiswa } from './main.js';
 
   $(document).ready(async function() {
-    let elemenDaftar= $("#absensi-siswa > tbody");
+    let elemenDaftar= $("#siswa > tbody");
     let absensiSiswa = await ambilAbsensiSiswa();
     let nomor = 1;
 
