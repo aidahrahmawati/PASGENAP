@@ -76,7 +76,7 @@
 
     tombolUbah.addEventListener('click', async function(el) {
       el.preventDefault();
-      await ubahProduk(docId, elemenNamaSiswa.value, elemenTanggal.value, elemenNis.value, elemenAlamat.value, elemenNoTlpn.value, elemenKelas.value, elemenKeterangan.value);
+      await ubahAbsensi(docId, elemenNamaSiswa.value, elemenTanggal.value, elemenNis.value, elemenAlamat.value, elemenNoTlpn.value, elemenKelas.value, elemenKeterangan.value);
       window.location.href = 'index.html';
     });
   </script>
