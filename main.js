@@ -25,7 +25,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export async function ambilAbsensiSiswa() {
-  const refDokumen = collection(db, "siswa");
+  const refDokumen = collection(db, "absensi");
   const kueri = query(refDokumen, orderBy("nama"));
   const cuplikanKueri = await getDocs(kueri);
 
@@ -52,7 +52,7 @@ export async function ambilAbsensiSiswa() {
 
 export async function tambahAbsensiSiswa(nama, tanggal, nis, alamat, noTlpn, kelas, keterangan) {
   try {
-    const dokRef = await addDoc(collection(db, 'absensiSiswa'), {
+    const dokRef = await addDoc(collection(db, 'absensi'), {
       nama: nama,
       tanggal:tanggal,
       nis: nis,
@@ -68,11 +68,11 @@ export async function tambahAbsensiSiswa(nama, tanggal, nis, alamat, noTlpn, kel
 }
 
 export async function hapusAbsensiSiswa(docId) {
-  await deleteDoc(doc(db, "absensiSiswa", docId));
+  await deleteDoc(doc(db, "absensi", docId));
 }  
 
-export async function ubahAbsensiSiswa(docId, nama, tanggal, nis, alamat, noTlpn, kelas, keterangan) {
-  await updateDoc(doc(db, "absensiSiswa", docId), {
+export async function ubahAbsensi(docId, nama, tanggal, nis, alamat, noTlpn, kelas, keterangan) {
+  await updateDoc(doc(db, "absensi", docId), {
     nama: nama,
     tanggal: tanggal,
     nis: nis,
@@ -83,8 +83,8 @@ export async function ubahAbsensiSiswa(docId, nama, tanggal, nis, alamat, noTlpn
   });
 }
 
-export async function ambilAbsensiSiswa(docId) {
-  const docRef = await doc(db, "absensiSiswa", docId);
+export async function ambilAbsensi(docId) {
+  const docRef = await doc(db, "absensi", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();

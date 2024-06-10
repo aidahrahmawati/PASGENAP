@@ -19,7 +19,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">tanggal</label>
-      <input type="text" class="form-control" id="input-tanghal">
+      <input type="date" class="form-control" id="input-tanggal">
     </div>
     <div class="mb-3">
       <label class="form-label">nis</label>
@@ -48,21 +48,21 @@
   <a class="mt-1" href="index.html">absensi siswa</a>
 
   <script type="module">
-    import { ambilAbsensiSiswa, ubahAbsensiSiswa } from './main.js';
+    import { ambilAbsensi, ubahAbsensi } from './main.js';
 
     let tombolUbah = document.getElementById('tombol-ubah');
     let elemenNamaSiswa = document.getElementById('input-nama');
     let elemenTanggal = document.getElementById('input-tanggal');
     let elemenNis = document.getElementById('input-Nis');
     let elemenAlamat = document.getElementById('input-alamat');
-    let elemenNoTlpn = document.getElementById('input-tanggal');
+    let elemenNoTlpn = document.getElementById('input-noTlpn');
     let elemenKelas = document.getElementById('input-kelas');
     let elemenKeterangan = document.getElementById('input-keterangan');
     let loader = document.getElementById('loader');
     const queryString = window.location.search
     const parameterURL = new URLSearchParams(queryString);
     const docId = parameterURL.get('docId')
-    const produk = await ambilAbsensiSiswa(docId);
+    const absensi = await ambilAbsensi(docId);
 
     elemenNamaSiswa.value = absensi.nama;
     elemenTanggal.value = absensi.tanggal;
